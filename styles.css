@@ -4,6 +4,11 @@ body {
     font-family: sans-serif;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     height: 100vh;
     display: flex;
@@ -26,25 +31,34 @@ body {
     font-size: 1.1em;
 }
 
+.game-button:hover {
+    cursor: pointer;
+}
+
 .win-counter {
     display: flex;
     justify-content: space-evenly;
     width: 350px;
     font-size: 1.1em;
+    margin-top: .75em;
 }
 
 #dialogue {
     font-size: 1.1em;
+    margin-bottom: .75em;
 }
 
 .green {
-    background-color: green;
+    background-color: #2dad49;
+    color: white;
 }
 
 .red {
-    background-color: red;
+    background-color: #c72f24;
+    color: white;
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: #dbcd32;
+    color: white;
 }

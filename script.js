@@ -1,42 +1,62 @@
-const rockButton = document.querySelector("#Rock");
-const paperButton = document.querySelector("#Paper");
-const scissorsButton = document.querySelector("#Scissors");
-const display = document.querySelector("p");
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+const dialogue = document.querySelector("#dialogue");
+const winTracker = document.querySelector("#wins");
+const lossTracker = document.querySelector("#losses");
+const tieTracker = document.querySelector("#ties");
+
+let wins = 0;
+let losses = 0;
+let ties = 0;
+let lastButtonUsed;
 
 function getBotChoice()
 {
     const num = Math.floor(Math.random() * 3);
-    if (num === 0) return "Rock";
-    else if (num === 1) return "Paper";
-    else return "Scissors";
+    if (num === 0) return "rock";
+    else if (num === 1) return "paper";
+    else return "scissors";
 }
 
-function newGame(playerChoice)
+function playGame(playerChoice, button)
 {
+    if (lastButtonUsed !== undefined)
+    {
+        lastButtonUsed.classList.remove("red", "green", "yellow");
+    }
+    lastButtonUsed = button;
+
     const botChoice = getBotChoice();
     switch(true)
     {
         case playerChoice === botChoice:
-            display.textContent = `Tie! The bot chose ${botChoice}`;
+            tieTracker.textContent = `Ties: ${++ties}`;
+            dialogue.textContent = `Tie! The bot picked ${botChoice}.`;
+            button.classList.add("yellow");
             break;
-        case playerChoice === "Rock" && botChoice === "Scissors":
-        case playerChoice === "Paper" && botChoice === "Rock":
-        case playerChoice === "Scissors" && botChoice === "Paper":
-            display.textContent = `You Win! The bot chose ${botChoice}`;
+        case playerChoice === "rock" && botChoice === "scissors":
+        case playerChoice === "paper" && botChoice === "rock":
+        case playerChoice === "scissors" && botChoice === "paper":
+            winTracker.textContent = `Wins: ${++wins}`;
+            dialogue.textContent = `You Win! The bot picked ${botChoice}.`;
+            button.classList.add("green");
             break;
         default:
-            display.textContent = `You Lose! The bot chose ${botChoice}`;
+            lossTracker.textContent = `Losses: ${++losses}`;
+            dialogue.textContent = `You Lose! The bot picked ${botChoice}.`;
+            button.classList.add("red");
     }
 }
 
 rockButton.addEventListener("click", () => {
-    newGame("Rock");
+    playGame("rock", rockButton);
 });
 
 paperButton.addEventListener("click", () => {
-    newGame("Paper");
+    playGame("paper", paperButton);
 });
 
 scissorsButton.addEventListener("click", () => {
-    newGame("Scissors");
+    playGame("scissors", scissorsButton);
 });
